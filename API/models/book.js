@@ -18,10 +18,7 @@ price:{
     type: Number,
     required: true,
 },   
-url:{
-    type: String,
-    required: true,
-},   
+  
 desc:{
     type: String,
     required: true,
