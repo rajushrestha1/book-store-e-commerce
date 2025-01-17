@@ -38,4 +38,37 @@ router.post("/add-book", authenticateToken, async (req, res) => {
         res.status(500).json({ message: "Server error", error: err.message });
     }
 });
+
+
+//update book
+
+router.put("/update-book", authenticateToken, async(req,res)=>{
+    try{
+const { bookid } =req.header;
+await Book.findIdAndUpdate(bookid, {
+    url: req.body.url,
+    title: req.body.title,
+    author: req.body.author,
+    price: req.body.price,
+    desc: req.body.desc,
+    language: req.body.language,
+})
+return res.status(200).json({message:"Book updated successfully"})
+    }catch(err){
+        return res.status(500).json({message:"error comming"})
+    }
+})
+
+//delete book
+
+router.delete("/delete-book", authenticateToken, async(req,res)=>{
+    try{
+        const { bookid }= req.header;
+        await book.findIdAndDelete(bookid)
+        return res.status(200).json({message:"Book deleted succesfully"})
+    }catch(err){
+        return res.status(500).json({message:"error comming"})
+    }
+})
+
 module.exports=router;
