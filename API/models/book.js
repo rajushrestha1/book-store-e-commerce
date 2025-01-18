@@ -31,4 +31,4 @@ language:{
 },
 {timestamps : true},
 );
-module.export= mongoose.model("book",book);
+module.exports= mongoose.model("book",book);

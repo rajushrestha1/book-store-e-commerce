@@ -3,13 +3,13 @@ const app = express()
 require("dotenv").config()
 require("./connections/conn")
 const user=require("./routes/user")
-const Book=require("./routes/book")
+const book=require("./routes/book")
 app.use(express.json());
 app.use(express.urlencoded({extended: true }))
 
 
 app.use("/user",user)
-app.use("/book",Book)
+app.use("/book",book)
 app.get('/', function (req, res) {
   res.send('Hello World')
 })
