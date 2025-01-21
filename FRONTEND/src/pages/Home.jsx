@@ -1,8 +1,9 @@
+import Hero from "../components/Hero"
 
 const Home = () => {
   return (
-    <div className="h-screen">
-      
+    <div className=" bg-zinc-500 px-10 py-8 ">
+      <Hero />
     </div>
   )
 }
