@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Hero = () => {
     return (
       <div className="h-[75vh] flex flex-col lg:flex-row bg-gray-500">
@@ -9,9 +11,9 @@ const Hero = () => {
             Get your knowledge by reading books. Reading books is like meditation.
           </p>
           <div className="mt-8">
-            <button className="px-6 py-3 text-lg lg:text-2xl font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded transition duration-300 shadow-md">
+            <Link to="all-books" className="px-6 py-3 text-lg lg:text-2xl font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded transition duration-300 shadow-md">
               Discover Books
-            </button>
+            </Link>
           </div>
         </div>
   
