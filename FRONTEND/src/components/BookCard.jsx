@@ -1,11 +1,19 @@
+import { Link } from "react-router-dom"
 
 
-const BookCard = ( data ) => {
+const BookCard = (data) => {
     console.log(data)
   return (
-    <div>
-      Book
-    </div>
+    <>
+      <Link to="/">
+      <div>
+        <div>
+          <img src={data.url} alt="/" />
+          </div>
+          <h2>{data.title}</h2>
+          </div>
+          </Link>
+    </>
   )
 }
 
