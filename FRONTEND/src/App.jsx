@@ -7,6 +7,7 @@ import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 import Cart from "./pages/Cart"
 import Profile from "./pages/Profile"
+import ViewBookSetails from "./components/views/ViewBookSetails"
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/signin" element={<SignIn/>}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="view-book-details/:id" element={<ViewBookSetails />} />
         </Routes>
         <Footer />
       </Router>
