@@ -1,7 +1,7 @@
 import Footer from "./components/Footer"
 import NavBar from "./components/NavBar"
 import Home from "./pages/Home"
-import{ BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import{  Routes, Route} from "react-router-dom"
 import AllBooks from "./pages/AllBooks"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
@@ -12,7 +12,6 @@ import ViewBookSetails from "./components/views/ViewBookSetails"
 const App = () => {
   return (
     <div>
-      <Router>
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />}></Route>
@@ -24,7 +23,7 @@ const App = () => {
           <Route path="view-book-details/:id" element={<ViewBookSetails />} />
         </Routes>
         <Footer />
-      </Router>
+      
     </div>
   )
 }

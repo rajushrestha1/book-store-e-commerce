@@ -1,7 +1,7 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom"
 
 const NavBar = () => {
@@ -25,7 +25,28 @@ const NavBar = () => {
                         title :"Profile",
                         link:"/profile",
                         },
+                        // {
+                        //   title: "Admin Profile",
+                        //   link: "/profile",
+                        // },
     ]
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  const role = useSelector((state) => state.auth.role);
+
+  if (isLoggedIn === false) {
+    links.splice(2, 2);
+  }
+
+  if (isLoggedIn === true && role === "user") {
+    links.splice(4, 1);
+  }
+
+  if (isLoggedIn === true && role === "admin") {
+    links.splice(3, 1);
+  }
+
+
     return (
       <div className="flex bg-zinc-800 text-white px-8 py-4 items-center justify-between shadow-lg">
         {/* Logo Section */}
