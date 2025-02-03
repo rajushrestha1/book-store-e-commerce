@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { FaArrowRightFromBracket } from "react-icons/fa6";
+import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import { authActions } from "../../store/auth";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -68,7 +68,7 @@ const Sidebar = ({ data }) => {
           history("/");
         }}
       >
-        Log Out <FaArrowRightFromBracket className="ms-4" />
+        Log Out <SubdirectoryArrowRightIcon className="ms-4" />
       </button>
     </div>
   );

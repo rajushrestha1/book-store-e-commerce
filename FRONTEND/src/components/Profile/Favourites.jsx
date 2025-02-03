@@ -1,6 +1,6 @@
 import axios from "axios";
 import  { useEffect, useState } from "react";
-import BookCard from "../BookCard/BookCard";
+import BookCard from "../BookCard";
 
 const Favourites = () => {
   const [FavouriteBooks, setFavouriteBooks] = useState();
@@ -12,7 +12,7 @@ const Favourites = () => {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "http://localhost:3000/favourite/get-favourite-books",
+        "http://localhost:3000/favourite/user-favourite",
         { headers }
       );
       setFavouriteBooks(response.data.data);

@@ -1,42 +1,36 @@
-import BookCard from "../components/BookCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Loader from "../components/Loader/Loader";
+import BookCard from "../components/BookCard";
 
 const AllBooks = () => {
-  const [Data, setData] = useState([]);  // Default to an empty array
-  const [loading, setLoading] = useState(true);  // Loading state to manage UI
+  const [Data, setData] = useState();
 
   useEffect(() => {
     const fetch = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/book/get-all-books");
-        console.log(response.data);  // Check the API response structure
-        setData(response.data.data || []);  // Set data if exists
-      } catch (error) {
-        console.error("Error fetching books:", error);
-      } finally {
-        setLoading(false);  // Set loading to false after request completes
-      }
+      const response = await axios.get(
+        "http://localhost:3000/book/get-all-books"
+      );
+      setData(response.data.data);
     };
     fetch();
   }, []);
-
   return (
-    <div className="mt-8 px-4">
-      <h4 className="font-bold">All Books</h4>
-      {loading ? (
-        <p>Loading...</p>  // Display a loading message while fetching
-      ) : Data.length === 0 ? (
-        <p>No books available</p>  // Handle case if data is empty
-      ) : (
-        <div className="my-4 grid grid-cols-1 sm:grid-cols-3 gap-4 md:grid-cols-4">
-          {Data.map((items, i) => (
-            <div key={i}>
-              <BookCard data={items} />
-            </div>
-          ))}
+    <div className="bg-zinc-900 h-auto px-12 py-8">
+      <h4 className="text-3xl text-yellow-100">All Books</h4>
+      {!Data && (
+        <div className="w-full h-screen flex items-center justify-center">
+          <Loader />
         </div>
       )}
+      <div className="my-8 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-8">
+        {Data &&
+          Data.map((items, i) => (
+            <div key={i}>
+              <BookCard data={items} />{" "}
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

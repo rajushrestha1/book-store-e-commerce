@@ -1,10 +1,10 @@
 import  { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../components/Loader/Loader";
-import { FaUserLarge } from "react-icons/fa6";
+import PersonIcon from '@mui/icons-material/Person';
 import { Link } from "react-router-dom";
-import { FaCheck } from "react-icons/fa";
-import { IoOpenOutline } from "react-icons/io5";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SeeUserData from "./SeeUserData";
 
 const AllOrders = () => {
@@ -19,19 +19,29 @@ const AllOrders = () => {
     authorization: `Bearer ${localStorage.getItem("token")}`,
   };
 
+  // Update useEffect to handle undefined data
   useEffect(() => {
-    const fetch = async () => {
+    const fetchOrders = async () => {
       try {
         const response = await axios.get(
           "http://localhost:3000/order/get-all-order",
           { headers }
         );
+        
+        // Add validation for response structure
+        if (!response.data?.data) {
+          throw new Error("Invalid response structure");
+        }
+        
         setAllOrders(response.data.data);
       } catch (error) {
-        console.error("Error fetching orders:", error);
+        console.error("Order fetch error:", {
+          error: error.response?.data || error.message,
+          status: error.response?.status
+        });
       }
     };
-    fetch();
+    fetchOrders();
   }, []);
 
   const change = (e, orderId) => {
@@ -99,7 +109,7 @@ const AllOrders = () => {
             </div>
             <div className="w-[10%] md:w-[5%]">
               <h1 className="">
-                <FaUserLarge />
+                <PersonIcon />
               </h1>
             </div>
           </div>
@@ -164,7 +174,7 @@ const AllOrders = () => {
                         submitChanges(i);
                       }}
                     >
-                      <FaCheck />
+                      <CheckCircleIcon />
                     </button>
                   </div>
                 </h1>
@@ -177,7 +187,7 @@ const AllOrders = () => {
                     setUserDivData(items.user);
                   }}
                 >
-                  <IoOpenOutline />
+                  <OpenInNewIcon />
                 </button>
               </div>
             </div>
