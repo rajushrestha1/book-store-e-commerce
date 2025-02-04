@@ -29,14 +29,14 @@ try{
 
     
     }
-    return res.hson({
+    return res.json({
         status:"success",
         message:"order placed succesfully",
     })
 
 }catch(err){
     console.log("err")
-    return res.status(500).json({message:"server error"})
+    return res.status(500).json({message:"why this error"})
 }
 
 })

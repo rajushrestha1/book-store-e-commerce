@@ -93,22 +93,18 @@ router.get("/get-all-books", async(req,res) => {
 
 //get recently added book
 
-router.get("/recent-book", async(req,res) =>{
-
-    try{
-        const books= await Book.find().sort({createdAt: -1}).limit(4)
-        console.log("Fetched Books:", books);
-        return res.json({
-            status: "success",
-            data: books,
-        })
-
-    }catch(err){
-        console.log("err")
-        return res.status(500).json({message: "error go away"})
+// Example implementation for recent-book route
+router.get("/recent-book", async (req, res) => {
+    try {
+      const recentBooks = await Book.find()
+        .sort({ createdAt: -1 })
+        .limit(10);
+      res.json({ status: "success", data: recentBooks });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server error" });
     }
-})
-
+  });
 //get book by id
 
 router.get("/get-book-by-id/:id", async(req,res) =>{

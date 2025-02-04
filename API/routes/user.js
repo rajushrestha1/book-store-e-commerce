@@ -85,17 +85,21 @@ router.post("/sign-in", async(req,res)=>{
 
 //get user info
 
-router.get("/user-info", authenticateToken, async(req,res)=>{
-    try{
-
-        const {id}= req.headers;
-        const data= await User.findById(id).select("-password");
-        return res.status(200).json(data);
-        
-    }catch(err){
-        res.status(500).json({message:"server error"}) 
+// Add validation for user ID
+router.get("/user-info", authenticateToken, async (req, res) => {
+    try {
+      const { id } = req.headers;
+      if (!id) return res.status(400).json({ message: "User ID required" });
+  
+      const user = await User.findById(id).select("-password");
+      if (!user) return res.status(404).json({ message: "User not found" });
+  
+      res.status(200).json(user);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server error" });
     }
-})
+  });
 
 //update address
 

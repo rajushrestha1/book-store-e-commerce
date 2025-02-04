@@ -7,6 +7,11 @@ const book=require("./routes/book")
 const favourite=require("./routes/favourite")
 const cart=require("./routes/cart")
 const order=require("./routes/order")
+const cors=require("cors")
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true }))
 
