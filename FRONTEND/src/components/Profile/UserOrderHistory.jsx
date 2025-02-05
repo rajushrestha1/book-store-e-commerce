@@ -12,19 +12,21 @@ const UserOrderHistory = () => {
   };
 
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/order/get-order-history",
-          { headers }
-        );
-        setOrderHistory(response.data.data);
-      } catch (error) {
-        console.error("Error fetching order history:", error);
-      }
+    const fetchOrderHistory = async () => {
+        try {
+            const response = await axios.get(
+                "http://localhost:3000/order/get-order-history",
+                { headers }
+            );
+            setOrderHistory(response.data.data || []);
+        } catch (error) {
+            console.error("Error fetching order history:", error);
+            setOrderHistory([]); // Ensure UI shows empty state
+        }
     };
-    fetch();
-  }, []);
+    fetchOrderHistory();
+}, []);
+
 
   if (!OrderHistory) {
     return (

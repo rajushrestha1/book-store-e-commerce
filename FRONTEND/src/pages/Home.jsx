@@ -3,7 +3,7 @@ import RecentlyAdded from "../components/RecentlyAdded"
 
 const Home = () => {
   return (
-    <div className=" bg-zinc-500 px-10 py-8 ">
+    <div className=" ">
       <Hero />
       <RecentlyAdded />
     </div>

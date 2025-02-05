@@ -31,18 +31,21 @@ const Cart = () => {
   const deleteItem = async (bookid) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/cart/remove-from-cart/${bookid}`,
+        "http://localhost:3000/cart/remove-from-cart", // Remove ${bookid} from URL
         {},
-        { headers }
+        { 
+          headers: { 
+            ...headers,    // Existing headers (like id and authorization)
+            bookid: bookid // Add bookid to headers
+          } 
+        }
       );
       alert(response.data.message);
-      // Re-fetch the cart after removing an item
       fetchCart();
     } catch (error) {
       console.error("Failed to delete item:", error);
     }
   };
-
   const fetchCart = async () => {
     try {
       const response = await axios.get(
@@ -67,17 +70,34 @@ const Cart = () => {
 
   const placeOrder = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/order/place-order",
-        { order: Cart },
-        { headers }
-      );
-      alert(response.data.message);
-      navigate("/profile/orderHistory");
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+        };
+
+        console.log("Cart Data:", Cart); // Log the Cart data for debugging
+
+        const response = await axios.post(
+            "http://localhost:3000/order/place-order",
+            { order: Cart },
+            { headers }
+        );
+
+        // Show success message from the response
+        alert(response.data.message);
+        navigate("/profile/orderHistory");
+
     } catch (error) {
-      console.error("Failed to place order:", error);
+        console.error("Failed to place order:", error);
+        if (error.response) {
+            console.error("Server Response:", error.response.data); // Log server response
+            alert(error.response.data.message); // Show server error message to user
+        } else {
+            alert("An unexpected error occurred.");
+        }
     }
-  };
+};
+  
 
   return (
     <div className="bg-zinc-900 px-12 h-screen py-8">
@@ -85,7 +105,7 @@ const Cart = () => {
         <div className="h-screen flex items-center justify-center">
           <div className="flex flex-col items-center">
             <h1 className="text-5xl font-semibold text-zinc-400">Empty Cart</h1>
-            <img src="./empty-cart.webp" alt="empty cart" className="lg:h-[50vh]" />
+            <img src="" alt="empty cart" className="lg:h-[50vh]" />
           </div>
         </div>
       ) : (
