@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 const SignIn = () => {
   const [values, setValues] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const [loading, setLoading] = useState(false); // Added loading state
@@ -19,7 +19,7 @@ const SignIn = () => {
   };
 
   const handleSubmit = async () => {
-    if (values.username === "" || values.password === "") {
+    if (values.email === "" || values.password === "") {
       alert("All fields are required");
       return;
     }
@@ -72,17 +72,17 @@ const SignIn = () => {
         <p className="text-zinc-200 text-xl">Sign In</p>
         <div className="mt-4">
           <div>
-            <label htmlFor="username" className="text-zinc-400">
-              Username
+            <label htmlFor="" className="text-zinc-400">
+              Useremail
             </label>
             <input
-              type="text"
-              id="username"
+              type="email"
+              id="email"
               className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-              placeholder="username"
-              name="username"
+              placeholder="email hala"
+              name="email"
               required
-              value={values.username}
+              value={values.email}
               onChange={handleChange}
             />
           </div>
