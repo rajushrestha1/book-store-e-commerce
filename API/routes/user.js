@@ -44,61 +44,47 @@ router.post("/sign-up", async (req, res) => {
     await newUser.save();
     return res.status(200).json({ message: "signup succesfully" });
   } catch (err) {
-    res.status(500).json({ message: "server error" });
+    res.status(500).json({ message: "server error  " + err });
   }
 });
 
 //sign
 router.post("/sign-in", async (req, res) => {
-  try {
-    const { username, password } = req.body;
+
 
     try{
         const {email, password}=req.body;
 
-        const existingUser= await User.findOne({email});
+        const existingUser= await User.findOne({email:email});
         if(!existingUser){
-            res.status(400).json({message: "user not found"})
+          return  res.status(400).json({message: "user not found"})
         }
-     bcrypt.compare(password, existingUser.password,(err,data)=>{
-            if(data){
-                const authClaims=[
-                    {name: existingUser.email},
-                    {role: existingUser.role},
-                ]
-                const token= jwt.sign({authClaims},"bookstore123",{expiresIn:"30d"})
-                res.status(200).json({id:existingUser._id, role:existingUser.role, token:token})
-            }
-            else{
-                res.status(400).json({message:"invalid credential"})
-            }
-        })
-    }catch(err){
 
-        res.status(500).json({message:"server error"})
-    }
-    await bcrypt.compare(password, existingUser.password, (err, data) => {
-      if (data) {
-        const authClaims = [
-          { name: existingUser.username },
-          { role: existingUser.role },
-        ];
-        const token = jwt.sign({ authClaims }, "bookstore123", {
-          expiresIn: "30d",
-        });
-        res
-          .status(200)
-          .json({
-            id: existingUser._id,
-            role: existingUser.role,
-            token: token,
-          });
-      } else {
-        res.status(400).json({ message: "invalid credential" });
-      }
-    });
+         isMatch= bcrypt.compare(password, existingUser.password);
+
+         if (isMatch) {
+            const authClaims = [
+              { name: existingUser.username },
+              { role: existingUser.role },
+            ];
+            const token = jwt.sign({ authClaims }, "bookstore123", {
+                expiresIn: "30d",
+                });
+
+              return  res.status(200).json({id:existingUser._id, role:existingUser.role, token:token})
+            
+         }
+            else{
+
+               return res.status(400).json({message:"invalid credential"})
+
+            }
+
+    
+
+   
   } catch (err) {
-    res.status(500).json({ message: "server error" });
+   return res.status(500).json({ message: "server error" });
   }
 });
 

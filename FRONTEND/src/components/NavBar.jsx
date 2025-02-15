@@ -27,15 +27,15 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="z-50 relative flex bg-violet-500 text-white px-6 py-4 items-center justify-between">
+      <nav className="z-50 relative flex   px-6 py-4 items-center justify-between">
         <Link to="/" className="flex items-center">
           <img
             className="h-10 mr-2"
-            src="https://cdn-icons-png.flaticon.com/128/10433/10433049.png"
+            src="https://w7.pngwing.com/pngs/391/829/png-transparent-diwan-bookstore-logo-publishing-book-angle-text-reading-thumbnail.png"
             alt="logo"
           />
-          <h1 className="text-4xl font-bold">
-            Book<span className="text-green-400">Pasal</span>
+          <h1 className=" font-poppins text-4xl font-bold">
+            Book<span className="font-poppins text-green-400">Pasal</span>
           </h1>
         </Link>
 
@@ -44,7 +44,7 @@ const Navbar = () => {
             <Link
               key={i}
               to={item.link}
-              className="text-xl hover:text-green-300 transition-all duration-300"
+              className="text-xl font-poppins hover:text-green-300 transition-all duration-300"
             >
               {item.title}
             </Link>
@@ -59,7 +59,7 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/SignUp"
-                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-400 transition-all duration-300"
+                className="px-4 py-2 bg-green-500  rounded hover:bg-green-400 transition-all duration-300"
               >
                 Sign Up
               </Link>

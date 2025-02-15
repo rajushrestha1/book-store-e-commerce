@@ -23,13 +23,13 @@ const RecentlyAdded = () => {
 
   return (
     <div className="mt-8 px-4">
-      <h4 className="font-bold text-4xl">Recently Added Books</h4>
+      <h4 className="font-bold font-poppins text-4xl">Recently Added Books</h4>
       {loading ? (
         <p>Loading...</p>  // Show a loading message while fetching data
       ) : Data.length === 0 ? (
         <p>No recently added books found.</p>  // Show a message if no books are found
       ) : (
-        <div className="my-4 grid grid-cols-1 sm:grid-cols-3 gap-4 md:grid-cols-4">
+        <div className="my-4 grid font-poppins grid-cols-1 sm:grid-cols-3 gap-4 md:grid-cols-4">
           {Data.map((items, i) => (
             <div key={i}>
               <BookCard data={items} />
