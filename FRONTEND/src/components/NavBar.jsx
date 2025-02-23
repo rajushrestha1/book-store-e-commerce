@@ -37,7 +37,7 @@ const Navbar = () => {
             alt="logo"
           />
           <h1 className="font-poppins text-4xl font-bold">
-            Book<span className="text-blue-500">Pasal</span>
+          Legendary <span className="text-blue-500">Reads</span>
           </h1>
         </Link>
 

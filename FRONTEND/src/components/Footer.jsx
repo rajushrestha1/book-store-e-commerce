@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Logo and Description */}
         <div>
-          <h2 className="text-2xl font-bold mb-4">Book<span className="text-green-400">Pasal</span></h2>
+          <h2 className="text-2xl font-bold mb-4">Legendary <span className="text-green-400">Reads</span></h2>
           <p className="text-sm">
             Whoever engages in laborious exercise, except to take a small part in the pleasure that comes from it. 
             They are suffering pain in the pursuit of pleasure.

@@ -8,6 +8,17 @@ const BookCard = ({ data, favourite }) => {
     bookid: data._id,
   };
 
+
+  const handleCart = async () => {
+    const response = await axios.put(
+      "http://localhost:3000/cart/add-to-cart",
+      {},
+      { headers }
+    );
+    alert(response.data.message);
+  };
+
+
   const handleRemoveBook = async () => {
     const response = await axios.put(
       "http://localhost:3000/favourite/remove-from-favourite",
@@ -46,7 +57,7 @@ const BookCard = ({ data, favourite }) => {
           Remove from Favourites
         </button>
       ) : (
-        <button className="mt-4 w-full font-poppins py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+        <button className="mt-4 w-full font-poppins py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"  onClick={handleCart} >
           Add to Cart
         </button>
       )}

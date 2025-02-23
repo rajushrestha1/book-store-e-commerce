@@ -6,41 +6,36 @@ import Loader from "../components/Loader/Loader";
 import MobileNav from "../components/Profile/MobileNav";
 
 const Profile = () => {
-  const [profile, setProfile] = useState();
+  const [profile, setProfile] = useState(null);
 
-  const headers = {
-    id: localStorage.getItem("id") || "",
-    authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-  };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const headers = {
+          id: localStorage.getItem("id") || "",
+          authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+        };
 
- // Remove headers from dependencies and fetch inside useEffect
-useEffect(() => {
-  const fetchProfile = async () => {
-    const headers = {
-      id: localStorage.getItem("id") || "",
-      authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+        const response = await axios.get(
+          "http://localhost:3000/user/user-info",
+          { headers }
+        );
+        setProfile(response.data);
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
     };
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/user/user-info",
-        { headers }
-      );
-      setProfile(response.data);
-    } catch (error) {
-      console.error("Error fetching profile data:", error);
-    }
-  };
-  fetchProfile();
-}, [headers]); // Empty dependency array to run once
+
+    fetchProfile();
+  }, []); // ✅ Run only once when the component mounts
 
   return (
-    <div className=" px-2 md:px-12 flex flex-col md:flex-row py-8 gap-4 ">
-      {!profile && (
+    <div className="px-2 md:px-12 flex flex-col md:flex-row py-8 gap-4">
+      {!profile ? (
         <div className="w-full h-[100vh] flex items-center justify-center">
           <Loader />
         </div>
-      )}
-      {profile && (
+      ) : (
         <>
           <div className="w-full md:w-1/6 h-auto lg:h-screen">
             <Sidebar data={profile} />

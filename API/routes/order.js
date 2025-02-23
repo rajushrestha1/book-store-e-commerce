@@ -34,7 +34,7 @@ router.post("/place-order", authenticateToken, async (req, res) => {
 
     } catch (err) {
         console.log("err:", err); // Log the actual error
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error "  });
     }
 });
 
@@ -46,16 +46,24 @@ router.get("/get-order-history", authenticateToken, async (req, res) => {
         if (!id) {
             return res.status(400).json({ message: "Missing user ID" });
         }
+
         const userData = await User.findById(id).populate({
             path: "orders",
-            populate: { path: "book", model: "books" }
+            populate: { path: "book" }
         });
+
         if (!userData) {
             return res.status(404).json({ message: "User not found" });
         }
-        // Return empty array instead of 404 if no orders
-        const orderData = userData.orders?.reverse() || [];
-        return res.json({ status: "success", data: orderData });
+
+        console.log("User Data:", userData);
+
+        if (!userData.orders || userData.orders.length === 0) {
+            return res.json({ status: "success", data: [] });
+        }
+
+        return res.json({ status: "success", data: [...userData.orders].reverse() });
+
     } catch (err) {
         console.error("Server Error:", err);
         return res.status(500).json({ message: "Internal server error" });
