@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+import PaymentComponent from "../utility/PaymentComponent";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -14,38 +16,9 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/cart/user-cart",
-          { headers }
-        );
-        setCart(response.data.data);  // assuming your API returns { data: [...] }
-      } catch (error) {
-        console.error("Failed to fetch cart:", error);
-      }
-    };
-    fetch();
-  }, []); // Empty dependency array so the effect runs only once
+    fetchCart();
+  }, []);
 
-  const deleteItem = async (bookid) => {
-    try {
-      const response = await axios.put(
-        "http://localhost:3000/cart/remove-from-cart", // Remove ${bookid} from URL
-        {},
-        { 
-          headers: { 
-            ...headers,    // Existing headers (like id and authorization)
-            bookid: bookid // Add bookid to headers
-          } 
-        }
-      );
-      alert(response.data.message);
-      fetchCart();
-    } catch (error) {
-      console.error("Failed to delete item:", error);
-    }
-  };
   const fetchCart = async () => {
     try {
       const response = await axios.get(
@@ -58,90 +31,81 @@ const Cart = () => {
     }
   };
 
-  useEffect(() => {
-    if (Cart && Cart.length > 0) {
-      let total = 0;
-      Cart.forEach((item) => {
-        total += item.price;
-      });
-      setTotal(total);
-    }
-  }, [Cart]);  // Update total when Cart changes
-
-  const placeOrder = async () => {
+  const deleteItem = async (bookid) => {
     try {
-        const headers = {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-            'Content-Type': 'application/json',
-        };
-
-        console.log("Cart Data:", Cart); // Log the Cart data for debugging
-
-        const response = await axios.post(
-            "http://localhost:3000/order/place-order",
-            { order: Cart },
-            { headers }
-        );
-
-        // Show success message from the response
-        alert(response.data.message);
-        navigate("/profile/orderHistory");
-
-    } catch (error) {
-        console.error("Failed to place order:", error);
-        if (error.response) {
-            console.error("Server Response:", error.response.data); // Log server response
-            alert(error.response.data.message); // Show server error message to user
-        } else {
-            alert("An unexpected error occurred.");
+      await axios.put(
+        "http://localhost:3000/cart/remove-from-cart",
+        {},
+        { 
+          headers: { 
+            ...headers,    
+            bookid: bookid 
+          } 
         }
+      );
+      fetchCart();
+    } catch (error) {
+      console.error("Failed to delete item:", error);
     }
-};
-  
+  };
+
+  useEffect(() => {
+    let total = Cart.reduce((acc, item) => acc + item.price, 0);
+    setTotal(total);
+  }, [Cart]);
 
   return (
-    <div className="bg-zinc-900 px-12 h-screen py-8">
-      {!Cart || Cart.length === 0 ? (
+    <div className="container mx-auto px-6 py-8">
+      {Cart.length === 0 ? (
         <div className="h-screen flex items-center justify-center">
-          <div className="flex flex-col items-center">
-            <h1 className="text-5xl font-semibold text-zinc-400">Empty Cart</h1>
-            <img src="" alt="empty cart" className="lg:h-[50vh]" />
-          </div>
+          <h1 className="text-5xl font-semibold">Your Cart is Empty</h1>
         </div>
       ) : (
-        <>
-          <h1 className="text-5xl font-semibold text-zinc-500 mb-8">Your Cart</h1>
-          {Cart.map((item, i) => (
-            <div className="w-full my-4 rounded flex flex-col md:flex-row p-4 bg-zinc-800 justify-between items-center" key={i}>
-              <img src={item.url} alt="/" className="h-[20vh] md:h-[10vh] object-cover" />
-              <div className="w-full md:w-auto">
-                <h1 className="text-2xl text-zinc-100 font-semibold text-start mt-2 md:mt-0">{item.title}</h1>
-                <p className="text-normal text-zinc-300 mt-2 hidden lg:block">{item.desc.slice(0, 100)}...</p>
-                <p className="text-normal text-zinc-300 mt-2 hidden md:block lg:hidden">{item.desc.slice(0, 65)}...</p>
-                <p className="text-normal text-zinc-300 mt-2 block md:hidden">{item.desc.slice(0, 100)}...</p>
-              </div>
-              <div className="flex mt-4 w-full md:w-auto items-center justify-between">
-                <h2 className="text-zinc-100 text-3xl font-semibold">&#8377; {item.price}</h2>
-                <button className="bg-red-100 text-red-700 border border-red-700 rounded p-2 ms-12" onClick={() => deleteItem(item._id)}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          {/* Cart Items */}
+          <div className="md:col-span-2">
+            <h1 className="text-4xl font-semibold mb-6">Shopping Cart ({Cart.length})</h1>
+            {Cart.map((item, i) => (
+              <div key={i} className="flex items-center justify-between border-b py-4">
+                {/* Book Image */}
+                <img src={item.url} alt={item.title} className="h-24 w-16 object-cover rounded-lg" />
+
+                {/* Book Details */}
+                <div className="flex flex-col flex-1 ml-4">
+                  <h2 className="text-lg font-semibold">{item.title}</h2>
+                  <p className="text-gray-500 text-sm">by {item.author}</p>
+                </div>
+
+                {/* Quantity Selector */}
+                <div className="flex items-center border px-3 py-1 rounded">
+                  <button className="px-2 text-lg">−</button>
+                  <span className="mx-2">{item.quantity || 1}</span>
+                  <button className="px-2 text-lg">+</button>
+                </div>
+
+                {/* Price */}
+                <h2 className="text-xl font-semibold ml-4">Rs. {item.price}</h2>
+
+                {/* Remove Button */}
+                <button onClick={() => deleteItem(item._id)} className="text-red-500 ml-4">
                   <DeleteIcon />
                 </button>
               </div>
-            </div>
-          ))}
-          <div className="mt-4 w-full flex items-center justify-end">
-            <div className="p-4 bg-zinc-800 rounded">
-              <h1 className="text-3xl text-zinc-200 font-semibold">Total Amount</h1>
-              <div className="mt-3 flex items-center justify-between text-xl text-zinc-200">
-                <h2>{Cart.length} books</h2> <h2>&#8377; {Total}</h2>
-              </div>
-              <div className="w-[100%] mt-3">
-                <button className="bg-zinc-100 rounded px-4 py-2 flex justify-center w-full font-semibold hover:bg-zinc-200" onClick={placeOrder}>
-                  Place your order
-                </button>
-              </div>
-            </div>
+            ))}
+            <a href="/" className="text-blue-500 mt-4 inline-block">← Continue Shopping</a>
           </div>
-        </>
+
+          {/* Order Summary */}
+          <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
+            <div className="flex justify-between text-lg">
+              <p>Subtotal</p>
+              <p>Rs. {Total}</p>
+            </div>
+            <PaymentComponent cartItems={Cart} totalAmount={Total} />
+          </div>
+        </div>
       )}
     </div>
   );

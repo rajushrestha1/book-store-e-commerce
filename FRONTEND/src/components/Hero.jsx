@@ -1,13 +1,28 @@
 import { Link } from "react-router-dom";
 import heroBg from '../assets/home_image.jpg';
 
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const Hero = () => {
+  
+
   return (
+
+   
+
     <div className="h-screen flex flex-col lg:flex-row   "
     style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover" }}
     
     >
+
+
       {/* Left Section */}
+      
       <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center px-6 lg:px-16 text-center lg:text-left">
         <h1 className="font-poppins text-5xl font-bold ">
           Get your new book 📚
@@ -24,6 +39,8 @@ const Hero = () => {
 
      
     </div>
+
+  
   );
 };
 

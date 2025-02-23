@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
 import AllBooks from "./pages/AllBooks";
@@ -17,6 +17,10 @@ import Settings from "./components/Profile/Settings";
 import AllOrders from "./pages/AllOrders";
 import AddBook from "./pages/AddBook";
 import UpdateBook from "./pages/UpdateBook";
+
+import PaymentComponent from "./utility/PaymentComponent";
+import verifyPayment from "./utility/verifyPayment";
+import PaymentSuccess from "./pages/paymentSuccess";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,6 +59,10 @@ const App = () => {
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/updateBook/:id" element={<UpdateBook />} />
         <Route path="/view-book-details/:id" element={<ViewBookSetails />} />
+        <Route path="/payment-component" element={<PaymentComponent />} />
+        <Route path="/verify-payment" element={<verifyPayment />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+
       </Routes>
       <Footer />
     </div>

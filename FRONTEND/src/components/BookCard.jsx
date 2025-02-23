@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
+
 const BookCard = ({ data, favourite }) => {
   const headers = {
     id: localStorage.getItem("id"),
@@ -17,31 +18,36 @@ const BookCard = ({ data, favourite }) => {
   };
 
   return (
-    <div className="bg-grey-200 rounded-lg p-4 flex flex-col shadow-lg border transition-all duration-300 hover:shadow-2xl">
-      <Link to={`/view-book-details/${data._id}`}>
-        <div className="relative">
-          {/* Image Container with Rounded Borders */}
-          <div className="bg-zinc-900 rounded-lg flex items-center justify-center overflow-hidden">
-            <img src={data.url} alt="/" className="h-[25vh] w-full object-cover rounded-lg" />
-          </div>
-
-          {/* Fading Foreground Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent rounded-lg"></div>
+    <div className="bg-white font-poppins rounded-lg p-4 shadow-lg border transition-all duration-300 hover:shadow-2xl w-72">
+      {/* Book Cover Image */}
+      <Link to={`/view-book-details/${data._id}`} className="block">
+        <div className="bg-gray-200 font-poppins rounded-lg overflow-hidden">
+          <img 
+            src={data.url} 
+            alt={data.title} 
+            className="h-60 w-full font-poppins object-cover rounded-lg" 
+          />
         </div>
 
-        {/* Book Details */}
-        <h2 className="mt-4 text-xl font-poppins font-semibold">{data.title}</h2>
-        <p className="mt-2 font-poppins font-semibold">by {data.author}</p>
-        <p className="mt-2 font-poppins font-semibold text-xl">&#8377; {data.price}</p>
+        {/* Book Title & Author */}
+        <h2 className="mt-4 text-lg font-poppins font-semibold text-gray-900">{data.title}</h2>
+        <p className="text-sm font-poppins text-gray-600">by {data.author}</p>
+
+        {/* Price */}
+        <p className="mt-2 text-lg font-poppins font-bold text-gray-900">Rs. {data.price}</p>
       </Link>
 
       {/* Favourite Button */}
-      {favourite && (
+      {favourite ? (
         <button
-          className="bg-yellow-50 px-4 py-2 rounded-lg border border-yellow-500 text-yellow-500 mt-4 hover:bg-yellow-100 transition-all duration-300"
+          className="mt-4 w-full py-2 font-poppins border border-yellow-500 text-yellow-500 rounded-lg hover:bg-yellow-50 transition-all"
           onClick={handleRemoveBook}
         >
-          Remove from favourites
+          Remove from Favourites
+        </button>
+      ) : (
+        <button className="mt-4 w-full font-poppins py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+          Add to Cart
         </button>
       )}
     </div>
