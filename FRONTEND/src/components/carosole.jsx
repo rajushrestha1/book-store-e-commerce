@@ -10,7 +10,7 @@ const CarouselComponent = () => {
     useEffect(() => {
         const fetchCarouselItems = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/home/get-carousel-slides");
+                const response = await axios.get("https://legendary-books-backend.vercel.app/home/get-carousel-slides");
                 setCarouselItems(response.data);
             } catch (error) {
                 console.error("Error fetching carousel items:", error);

@@ -19,16 +19,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true }))
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || "localhost";
 
-// Serve the static files from the React app
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-// Handle requests by serving index.html for all routes
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
-});
 
 app.use("/user",user)
 app.use("/book",book)
@@ -39,12 +33,6 @@ app.use("/home",home )
 app.use("/payment", payment);
 app.use("/author", author);
 
-
-// API endpoint
-app.use('/api/products', async (req, res) => {
-  const response = await axios.get('https://fakestoreapi.com/products');
-  res.send(response.data);
-});
 
 app.get('/', function (req, res) {
   res.send('Hello World')
