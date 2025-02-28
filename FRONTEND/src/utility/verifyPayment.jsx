@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../utility/config";
+import { API_BASE_URL } from "./config";
 
 const BACKEND_URL = API_BASE_URL+"/payment/khalti/lookup"; 
 const verifyPayment = async () => {

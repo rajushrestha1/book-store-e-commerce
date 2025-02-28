@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { initiatePayment } from "./khaltiService";
-import { API_BASE_URL } from "../utility/config";
+import { API_BASE_URL } from "./config";
 
 const PaymentComponent = ({ cartItems, totalAmount }) => {
   const [loading, setLoading] = useState(false);
