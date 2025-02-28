@@ -42,7 +42,7 @@ const BookCard = ({ data, favourite }) => {
 
         {/* Book Title & Author */}
         <h2 className="mt-4 text-lg font-poppins font-semibold text-gray-900">{data.title}</h2>
-        <p className="text-sm font-poppins text-gray-600">by {data.author}</p>
+        <p className="text-sm font-poppins text-gray-600">by {data.author.name}</p>
 
         {/* Price */}
         <p className="mt-2 text-lg font-poppins font-bold text-gray-900">Rs. {data.price}</p>

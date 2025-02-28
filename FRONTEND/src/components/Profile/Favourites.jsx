@@ -11,21 +11,25 @@ const Favourites = () => {
   };
   useEffect(() => {
     const fetch = async () => {
-      const response = await axios.get(
-        "http://localhost:3000/favourite/user-favourite",
-        { headers }
-      );
-      setFavouriteBooks(response.data.data);
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/favourite/user-favourite",
+          { headers }
+        );
+        setFavouriteBooks(response.data.data);
+      } catch (error) {
+        console.error("Error fetching favourite books:", error);
+      }
     };
     fetch();
-  }, [FavouriteBooks]);
+  }, []); // ✅ Empty dependency array
 
   return (
     <>
       {FavouriteBooks && FavouriteBooks.length === 0 && (
-        <div className="text-5xl font-semibold h-[100%] text-zinc-500 flex items-center justify-center flex-col w-full">
+        <div className="w-full h-[600px] flex items-center justify-center bg-cover bg-center px-6 lg:px-16">
           No Favourite Books
-          <img src="./star.png" alt="star" className="h-[20vh] my-8" />
+          <img src="https://img.freepik.com/free-vector/woman-saying-no-concept-illustration_114360-19594.jpg?t=st=1740726593~exp=1740730193~hmac=d29b2ee3d3c92727b4329642f226eee7a22830cca376d19ee70f9a09f2097485&w=1480" alt="star" className="h-[200px] my-8" />
         </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

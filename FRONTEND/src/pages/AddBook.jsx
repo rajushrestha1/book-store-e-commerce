@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AddBook = () => {
   const [Data, setData] = useState({
@@ -9,7 +9,25 @@ const AddBook = () => {
     price: "",
     desc: "",
     language: "",
+    genre: "",
+    isFeatured: false,
   });
+
+  const [authors, setAuthors] = useState([]); // Store fetched authors
+
+  useEffect(() => {
+    fetchAuthors();
+  }, []);
+
+  // Fetch authors from the backend
+  const fetchAuthors = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/author/list");
+      setAuthors(response.data.data);
+    } catch (error) {
+      console.error("Error fetching authors:", error);
+    }
+  };
 
   const headers = {
     id: localStorage.getItem("id"),
@@ -17,19 +35,20 @@ const AddBook = () => {
   };
 
   const change = (e) => {
-    const { name, value } = e.target;
-    setData({ ...Data, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setData({ ...Data, [name]: type === "checkbox" ? checked : value });
   };
 
   const submit = async () => {
     try {
       if (
-        Data.url === "" ||
-        Data.title === "" ||
-        Data.author === "" ||
-        Data.price === "" ||
-        Data.desc === "" ||
-        Data.language === ""
+        !Data.url ||
+        !Data.title ||
+        !Data.author ||
+        !Data.price ||
+        !Data.desc ||
+        !Data.language ||
+        !Data.genre
       ) {
         alert("All fields are required");
       } else {
@@ -45,11 +64,13 @@ const AddBook = () => {
           price: "",
           desc: "",
           language: "",
+          genre: "",
+          isFeatured: false,
         });
         alert(response.data.message);
       }
     } catch (error) {
-      alert(error.response.data.message);
+      alert(error.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -58,15 +79,13 @@ const AddBook = () => {
       <h1 className="text-3xl md:text-5xl font-semibold text-zinc-500 mb-8">
         Add Book
       </h1>
-      <div className="p-4 bg-zinc-800 rounded">
+      <div className="p-4  rounded">
         <div>
-          <label htmlFor="" className="text-zinc-400">
-            Image
-          </label>
+          <label className="">Image</label>
           <input
             type="text"
-            className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-            placeholder="url of image"
+            className="w-full mt-2   p-2 "
+            placeholder="URL of image"
             name="url"
             required
             value={Data.url}
@@ -74,42 +93,42 @@ const AddBook = () => {
           />
         </div>
         <div className="mt-4">
-          <label htmlFor="" className="text-zinc-400">
-            Title of book
-          </label>
+          <label className="">Title of book</label>
           <input
             type="text"
-            className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-            placeholder="title of the book"
+            className="w-full mt-2  p-2 "
+            placeholder="Title of the book"
             name="title"
             required
             value={Data.title}
             onChange={change}
           />
         </div>
+        {/* Dropdown for selecting author */}
         <div className="mt-4">
-          <label htmlFor="" className="text-zinc-400">
-            Author of book
-          </label>
-          <input
-            type="text"
-            className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-            placeholder="author of the book"
+          <label className="">Author</label>
+          <select
+            className="w-full mt-2  p-2 "
             name="author"
             required
             value={Data.author}
             onChange={change}
-          />
+          >
+            <option value="">Select an Author</option>
+            {authors.map((author) => (
+              <option key={author._id} value={author._id}>
+                {author.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mt-4 flex gap-4">
           <div className="w-3/6">
-            <label htmlFor="" className="text-zinc-400">
-              Language
-            </label>
+            <label className="">Language</label>
             <input
               type="text"
-              className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-              placeholder="language of the book"
+              className="w-full mt-2 p-2 "
+              placeholder="Language of the book"
               name="language"
               required
               value={Data.language}
@@ -117,13 +136,11 @@ const AddBook = () => {
             />
           </div>
           <div className="w-3/6">
-            <label htmlFor="" className="text-zinc-400">
-              Price
-            </label>
+            <label className="">Price</label>
             <input
               type="number"
-              className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-              placeholder="price of the book"
+              className="w-full mt-2  p-2 "
+              placeholder="Price of the book"
               name="price"
               required
               value={Data.price}
@@ -132,18 +149,39 @@ const AddBook = () => {
           </div>
         </div>
         <div className="mt-4">
-          <label htmlFor="" className="text-zinc-400">
-            Description of book
-          </label>
+          <label className="">Genre</label>
+          <input
+            type="text"
+            className="w-full mt-2  p-2 "
+            placeholder="Genre of the book"
+            name="genre"
+            required
+            value={Data.genre}
+            onChange={change}
+          />
+        </div>
+        <div className="mt-4">
+          <label className="">Description of book</label>
           <textarea
-            className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
+            className="w-full mt-2  p-2 "
             rows="5"
-            placeholder="description of the book"
+            placeholder="Description of the book"
             name="desc"
             required
             value={Data.desc}
             onChange={change}
           />
+        </div>
+        {/* Checkbox for marking as featured */}
+        <div className="mt-4 flex items-center gap-2">
+          <input
+            type="checkbox"
+            className="w-5 h-5"
+            name="isFeatured"
+            checked={Data.isFeatured}
+            onChange={change}
+          />
+          <label className=" ">Mark as Featured</label>
         </div>
         <button
           className="mt-4 px-3 bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600 transition-all duration-300"

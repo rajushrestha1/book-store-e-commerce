@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
-const Carousel = () => {
+const CarouselComponent = () => {
     const [carouselItems, setCarouselItems] = useState([]);
 
     // Fetch carousel data from API
@@ -21,49 +19,39 @@ const Carousel = () => {
         fetchCarouselItems();
     }, []);
 
-    // Slider Settings
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 800,
-        slidesToShow: 3, // Show 3 slides at once
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2500, // Rotate every 2.5 seconds
-        arrows: true,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                },
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 1,
-                },
-            },
-        ],
+    const responsive = {
+        desktop: { breakpoint: { max: 3000, min: 1024 }, items: 3, slidesToSlide: 3 },
+        tablet: { breakpoint: { max: 1024, min: 464 }, items: 2, slidesToSlide: 2 },
+        mobile: { breakpoint: { max: 464, min: 0 }, items: 1, slidesToSlide: 1 }
     };
 
     return (
         <div className="w-full px-4 py-8">
             {carouselItems.length > 0 ? (
-                <Slider {...settings}>
+                <Carousel
+                    swipeable={true}
+                    draggable={true}
+                    showDots={true}
+                    responsive={responsive}
+                    infinite={true}
+                    autoPlay={window.innerWidth > 768}
+                    autoPlaySpeed={3000}
+                    keyBoardControl={true}
+                    customTransition="all .5s"
+                    transitionDuration={500}
+                    containerClass="carousel-container"
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    dotListClass="custom-dot-list-style"
+                    itemClass="carousel-item-padding-40-px"
+                >
                     {carouselItems.map((item) => (
-                        <div key={item.id} className="relative px-2">
-                            <div className="w-[450px] h-[300px] mx-auto  overflow-hidden rounded-lg shadow-md">
-                                <img
-                                    src={item.image}
-                                    alt={item.title}
-                                    className="w-full h-full object-cover"
-                                />
+                        <div key={item._id} className="relative w-[450px] h-[300px] px-2">
+                            <div className="w-[450px] h-[300px] mx-auto overflow-hidden rounded-lg shadow-md">
+                                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                             </div>
-                           
                         </div>
                     ))}
-                </Slider>
+                </Carousel>
             ) : (
                 <div className="h-96 bg-gray-300 flex items-center justify-center">
                     <p className="text-2xl">Loading...</p>
@@ -73,4 +61,4 @@ const Carousel = () => {
     );
 };
 
-export default Carousel;
+export default CarouselComponent;

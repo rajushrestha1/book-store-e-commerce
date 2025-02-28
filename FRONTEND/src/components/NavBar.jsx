@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SearchBar from "./searchBar";
 
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
@@ -40,6 +41,10 @@ const Navbar = () => {
           Legendary <span className="text-blue-500">Reads</span>
           </h1>
         </Link>
+
+
+
+        <SearchBar />
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
