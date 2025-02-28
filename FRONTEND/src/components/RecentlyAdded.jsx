@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BookCard from "./BookCard";
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const RecentlyAdded = () => {
   const [Data, setData] = useState([]);  // Default to an empty array

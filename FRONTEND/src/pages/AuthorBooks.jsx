@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import axios from "axios";
  import BookCard from "../components/BookCard";
- import { API_BASE_URL } from "../utility/config";
+ const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const AuthorBooks = () => {
     const { authorId } = useParams();

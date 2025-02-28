@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const CarouselComponent = () => {
     const [carouselItems, setCarouselItems] = useState([]);

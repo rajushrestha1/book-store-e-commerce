@@ -8,7 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const ViewBookDetails = () => {
   const { id } = useParams();

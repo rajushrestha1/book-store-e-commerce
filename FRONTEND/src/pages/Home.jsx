@@ -7,7 +7,7 @@ import FeatureBooks from "../components/featurebook"
 import CarouselComponent from "../components/carosole"
 import GenresList from "../components/GenresList"
 import AuthorsList from "../components/AuthorsList"
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 const Home = () => {
   return (
     <div className=" ">

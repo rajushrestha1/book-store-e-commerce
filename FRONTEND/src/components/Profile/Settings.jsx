@@ -1,7 +1,7 @@
 import axios from "axios";
 import  { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const Settings = () => {
   const [Value, setValue] = useState({ address: "" });

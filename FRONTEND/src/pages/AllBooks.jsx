@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "../components/Loader/Loader";
 import BookCard from "../components/BookCard";
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const AllBooks = () => {
   const [Data, setData] = useState();

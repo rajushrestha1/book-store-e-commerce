@@ -1,7 +1,7 @@
 import axios from "axios";
 import  { useEffect, useState } from "react";
 import BookCard from "../BookCard";
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const Favourites = () => {
   const [FavouriteBooks, setFavouriteBooks] = useState();

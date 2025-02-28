@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SeeUserData from "./SeeUserData";
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const AllOrders = () => {
   const [AllOrders, setAllOrders] = useState([]);

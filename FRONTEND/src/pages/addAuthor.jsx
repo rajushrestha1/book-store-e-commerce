@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 const AddAuthor = () => {
   const [author, setAuthor] = useState({
     name: "",

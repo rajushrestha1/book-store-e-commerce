@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "./config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const BACKEND_URL = API_BASE_URL+"/payment/khalti/lookup"; 
 const verifyPayment = async () => {

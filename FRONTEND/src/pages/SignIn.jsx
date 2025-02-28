@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../store/auth";
 import { useDispatch } from "react-redux";
-import { API_BASE_URL } from "../utility/config";
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 
 const SignIn = () => {
   const [values, setValues] = useState({

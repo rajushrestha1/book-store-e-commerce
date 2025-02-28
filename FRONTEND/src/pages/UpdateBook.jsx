@@ -2,8 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { API_BASE_URL } from "../utility/config";
-
+const API_BASE_URL = "https://legendary-books-backend.vercel.app";
 const UpdateBook = () => {
   const [Data, setData] = useState({
     url: "",
