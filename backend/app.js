@@ -38,6 +38,14 @@ app.use("/order",order)
 app.use("/home",home )
 app.use("/payment", payment);
 app.use("/author", author);
+
+
+// API endpoint
+app.use('/api/products', async (req, res) => {
+  const response = await axios.get('https://fakestoreapi.com/products');
+  res.send(response.data);
+});
+
 app.get('/', function (req, res) {
   res.send('Hello World')
 })
