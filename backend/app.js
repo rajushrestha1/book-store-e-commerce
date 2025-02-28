@@ -11,6 +11,7 @@ const home=require("./routes/home")
 const payment = require("./routes/payment");
 const author = require("./routes/author");
 const cors=require("cors")
+const path = require('path');
 
 app.use(cors());
 
@@ -21,6 +22,13 @@ app.use(express.urlencoded({extended: true }))
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || "localhost";
 
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// Handle requests by serving index.html for all routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+});
 
 app.use("/user",user)
 app.use("/book",book)
