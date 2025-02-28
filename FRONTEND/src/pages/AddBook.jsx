@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "../utility/config";
 
 const AddBook = () => {
   const [Data, setData] = useState({
@@ -22,7 +23,7 @@ const AddBook = () => {
   // Fetch authors from the backend
   const fetchAuthors = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/author/list");
+      const response = await axios.get(API_BASE_URL+"/author/list");
       setAuthors(response.data.data);
     } catch (error) {
       console.error("Error fetching authors:", error);
@@ -53,7 +54,7 @@ const AddBook = () => {
         alert("All fields are required");
       } else {
         const response = await axios.post(
-          "http://localhost:3000/book/add-book",
+          API_BASE_URL+"/book/add-book",
           Data,
           { headers }
         );

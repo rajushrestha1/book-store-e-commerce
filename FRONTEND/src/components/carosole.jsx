@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { API_BASE_URL } from "../utility/config";
 
 const CarouselComponent = () => {
     const [carouselItems, setCarouselItems] = useState([]);
@@ -10,7 +11,7 @@ const CarouselComponent = () => {
     useEffect(() => {
         const fetchCarouselItems = async () => {
             try {
-                const response = await axios.get("https://legendary-books-backend.vercel.app/home/get-carousel-slides");
+                const response = await axios.get(API_BASE_URL+"/home/get-carousel-slides");
                 setCarouselItems(response.data);
             } catch (error) {
                 console.error("Error fetching carousel items:", error);

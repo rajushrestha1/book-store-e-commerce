@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader/Loader";
 import MobileNav from "../components/Profile/MobileNav";
+import { API_BASE_URL } from "../utility/config";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -17,7 +18,7 @@ const Profile = () => {
         };
 
         const response = await axios.get(
-          "http://localhost:3000/user/user-info",
+          API_BASE_URL+"/user/user-info",
           { headers }
         );
         setProfile(response.data);

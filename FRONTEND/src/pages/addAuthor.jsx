@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-
+import { API_BASE_URL } from "../utility/config";
 const AddAuthor = () => {
   const [author, setAuthor] = useState({
     name: "",
@@ -27,7 +27,7 @@ const AddAuthor = () => {
         return;
       }
 
-      const response = await axios.post("http://localhost:3000/author/add-author", author);
+      const response = await axios.post(API_BASE_URL +"/author/add-author", author);
       setAuthor({
         name: "",
         bio: "",

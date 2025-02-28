@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../store/auth";
 import { useDispatch } from "react-redux";
+import { API_BASE_URL } from "../utility/config";
 
 const SignIn = () => {
   const [values, setValues] = useState({
@@ -29,7 +30,7 @@ const SignIn = () => {
     try {
       console.log("Sending request with", values); // Log the values being sent
       const response = await axios.post(
-        "http://localhost:3000/user/sign-in",
+        API_BASE_URL+"/user/sign-in",
         values
       );
 

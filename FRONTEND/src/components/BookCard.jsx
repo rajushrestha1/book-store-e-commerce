@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { API_BASE_URL } from "../utility/config";
 
 const BookCard = ({ data, favourite }) => {
   const headers = {
@@ -11,7 +12,7 @@ const BookCard = ({ data, favourite }) => {
 
   const handleCart = async () => {
     const response = await axios.put(
-      "http://localhost:3000/cart/add-to-cart",
+      API_BASE_URL+"/cart/add-to-cart",
       {},
       { headers }
     );
@@ -21,7 +22,7 @@ const BookCard = ({ data, favourite }) => {
 
   const handleRemoveBook = async () => {
     const response = await axios.put(
-      "http://localhost:3000/favourite/remove-from-favourite",
+      API_BASE_URL+"/favourite/remove-from-favourite",
       {},
       { headers }
     );

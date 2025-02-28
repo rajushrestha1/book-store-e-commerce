@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { initiatePayment } from "./khaltiService";
+import { API_BASE_URL } from "../utility/config";
 
 const PaymentComponent = ({ cartItems, totalAmount }) => {
   const [loading, setLoading] = useState(false);
@@ -26,8 +27,8 @@ const PaymentComponent = ({ cartItems, totalAmount }) => {
     }));
 
     const paymentData = {
-      return_url: "http://localhost:5173/payment-success",
-      website_url: "http://localhost:5173/",
+      return_url: API_BASE_URL+"/payment-success",
+      website_url: "https://legendary-books-website.vercel.app/",
       amount: totalAmount * 100, // Convert to paisa
       purchase_order_id: `order_${Date.now()}`,
       purchase_order_name: "Book Purchase",

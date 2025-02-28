@@ -1,5 +1,6 @@
-const BACKEND_URL = "http://localhost:5000/payment/khalti/lookup"; // Replace with your backend URL
+import { API_BASE_URL } from "../utility/config";
 
+const BACKEND_URL = API_BASE_URL+"/payment/khalti/lookup"; 
 const verifyPayment = async () => {
   const pidx = searchParams.get("pidx");
   if (!pidx) {
@@ -16,7 +17,7 @@ const verifyPayment = async () => {
      
 
       // Call API to delete cart items
-      await axios.delete("http://localhost:3000/cart/clear", {
+      await axios.delete(API_BASE_URL+"/cart/clear", {
         headers: {
           id: localStorage.getItem("id"),
           authorization: `Bearer ${localStorage.getItem("token")}`,

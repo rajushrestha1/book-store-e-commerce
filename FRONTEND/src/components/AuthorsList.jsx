@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../utility/config";
 
 const AuthorsList = () => {
     const [authors, setAuthors] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:3000/author/list") // Adjust API URL as needed
+        axios.get(API_BASE_URL+"/author/list") // Adjust API URL as needed
             .then((res) => setAuthors(res.data.data))
             .catch((err) => console.error(err));
     }, []);

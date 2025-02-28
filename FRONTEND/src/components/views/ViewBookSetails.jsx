@@ -8,6 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { API_BASE_URL } from "../utility/config";
 
 const ViewBookDetails = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const ViewBookDetails = () => {
   useEffect(() => {
     const fetchBook = async () => {
       const response = await axios.get(
-        `http://localhost:3000/book/get-book-by-id/${id}`
+        API_BASE_URL+  `/book/get-book-by-id/${id}`
       );
       setData(response.data.data);
     };
@@ -35,7 +36,7 @@ const ViewBookDetails = () => {
 
   const handleFavourite = async () => {
     const response = await axios.put(
-      "http://localhost:3000/favourite/add-to-favourite",
+      API_BASE_URL+  "/favourite/add-to-favourite",
       {},
       { headers }
     );
@@ -44,7 +45,7 @@ const ViewBookDetails = () => {
 
   const handleCart = async () => {
     const response = await axios.put(
-      "http://localhost:3000/cart/add-to-cart",
+      API_BASE_URL+ "/cart/add-to-cart",
       {},
       { headers }
     );
@@ -53,7 +54,7 @@ const ViewBookDetails = () => {
 
   const deleteBook = async () => {
     const response = await axios.delete(
-      "http://localhost:3000/book/delete-book",
+      API_BASE_URL+  "/book/delete-book",
       { headers }
     );
     alert(response.data.message);

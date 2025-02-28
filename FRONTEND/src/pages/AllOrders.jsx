@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SeeUserData from "./SeeUserData";
+import { API_BASE_URL } from "../utility/config";
 
 const AllOrders = () => {
   const [AllOrders, setAllOrders] = useState([]);
@@ -24,7 +25,7 @@ const AllOrders = () => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/order/get-all-order",
+          API_BASE_URL+"/order/get-all-order",
           { headers }
         );
         
@@ -65,7 +66,7 @@ const AllOrders = () => {
     const status = orderStatuses[id] || AllOrders[i].status;
     try {
       const response = await axios.put(
-        `http://localhost:3000/order/update-status/${id}`,
+        API_BASE_URL+`/order/update-status/${id}`,
         { status },
         { headers }
       );

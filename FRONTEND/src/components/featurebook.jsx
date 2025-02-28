@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BookCard from "./BookCard";
+import { API_BASE_URL } from "../utility/config";
 
 const FeatureBooks = () => {
   const [Data, setData] = useState([]);  // Default to an empty array
@@ -9,7 +10,7 @@ const FeatureBooks = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/book//featured-books");
+        const response = await axios.get(API_BASE_URL+"/book/featured-books");
         console.log(response.data);  // Log to check the structure of the response
         setData(response.data.data || []);  // Safely set data
       } catch (error) {

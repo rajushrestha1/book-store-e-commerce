@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../utility/config";
 
 import PaymentComponent from "../utility/PaymentComponent";
 
@@ -22,7 +23,7 @@ const Cart = () => {
   const fetchCart = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/cart/user-cart",
+        API_BASE_URL+"/cart/user-cart",
         { headers }
       );
       setCart(response.data.data);
@@ -34,7 +35,7 @@ const Cart = () => {
   const deleteItem = async (bookid) => {
     try {
       await axios.put(
-        "http://localhost:3000/cart/remove-from-cart",
+        API_BASE_URL+"/cart/remove-from-cart",
         {},
         { 
           headers: { 

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import axios from "axios";
  import BookCard from "../components/BookCard";
+ import { API_BASE_URL } from "../utility/config";
 
 const AuthorBooks = () => {
     const { authorId } = useParams();
@@ -11,7 +13,7 @@ const AuthorBooks = () => {
 
     useEffect(() => {
         setLoading(true); // Start loading
-        axios.get(`http://localhost:3000/author/${authorId}`)
+        axios.get(API_BASE_URL+`/author/${authorId}`)
         .then((res) => {
             console.log("API Response:", res.data); // Debugging log
             setAuthor(res.data.data.author);    // ✅ Author object

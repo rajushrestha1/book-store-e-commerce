@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_BASE_URL } from "../utility/config";
 
-const KHALTI_API_URL = "http://localhost:3000/payment/khalti/initiate"; // Replace with actual URL
+const KHALTI_API_URL = API_BASE_URL+"/payment/khalti/initiate"; // Replace with actual URL
 const AUTH_KEY = "86e0c069d43a44fb9d077bcb0356f29e"; // Replace with actual key
 
 export const initiatePayment = async (paymentData) => {

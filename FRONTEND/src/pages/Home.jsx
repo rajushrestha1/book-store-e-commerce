@@ -7,6 +7,7 @@ import FeatureBooks from "../components/featurebook"
 import CarouselComponent from "../components/carosole"
 import GenresList from "../components/GenresList"
 import AuthorsList from "../components/AuthorsList"
+import { API_BASE_URL } from "../utility/config";
 const Home = () => {
   return (
     <div className=" ">

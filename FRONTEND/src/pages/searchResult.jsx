@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import BookCard from "../components/BookCard";
+import { API_BASE_URL } from "../utility/config";
 
 const SearchResults = () => {
     const location = useLocation();
@@ -11,7 +12,7 @@ const SearchResults = () => {
 
     useEffect(() => {
         if (query) {
-            axios.get(`http://localhost:3000/book/search?query=${query}`)
+            axios.get(API_BASE_URL+`/book/search?query=${query}`)
                 .then((res) => {
                     setBooks(res.data.data);
                     setLoading(false);

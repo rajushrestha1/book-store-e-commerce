@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { API_BASE_URL } from "../utility/config";
 
 const CarouselManager = () => {
   const [slide, setSlide] = useState({
@@ -20,7 +21,7 @@ const CarouselManager = () => {
         return;
       }
 
-      const response = await axios.post("http://localhost:3000/home/add-carousel-slider", slide);
+      const response = await axios.post(API_BASE_URL+"/home/add-carousel-slider", slide);
       setSlide({
         title: "",
         image: "",

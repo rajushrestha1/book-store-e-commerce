@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../utility/config";
 
 const genreImages = {
   "Arts & Photography": "https://source.unsplash.com/100x100/?art",
@@ -22,7 +23,7 @@ const GenresList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/book/genres")
+      .get(API_BASE_URL+"/book/genres")
       .then((res) => setGenres(res.data.data))
       .catch((err) => console.error(err));
   }, []);

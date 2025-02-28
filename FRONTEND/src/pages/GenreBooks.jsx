@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import BookCard from "../components/BookCard";
+import { API_BASE_URL } from "../utility/config";
 
 const GenreBooks = () => {
     const { genre } = useParams();
@@ -9,7 +10,7 @@ const GenreBooks = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/book/books-by-genre/${genre}`)
+        axios.get(API_BASE_URL+`/book/books-by-genre/${genre}`)
             .then((res) => {
                 setBooks(res.data.data);
                 setLoading(false);

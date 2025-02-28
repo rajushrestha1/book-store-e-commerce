@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BookCard from "./BookCard";
+import { API_BASE_URL } from "../utility/config";
 
 const RecentlyAdded = () => {
   const [Data, setData] = useState([]);  // Default to an empty array
@@ -9,7 +10,7 @@ const RecentlyAdded = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/book/recent-book");
+        const response = await axios.get(API_BASE_URL+"/book/recent-book");
         console.log(response.data);  // Log to check the structure of the response
         setData(response.data.data || []);  // Safely set data
       } catch (error) {
